@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@1,200&display=swap" rel="stylesheet">
+    <title>EBWEB</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    
+    
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+</head>
+<body>
+    <style>
+        /*Nóri*/
+        * {
+            box-sizing: border-box;
+            font-family: 'Jost', sans-serif;
+        }
+        body{
+            margin:0;
+            padding:0;
+        }
+        .column {
+          float: left;
+          width: 50%;
+          padding:25px;
+          height: 100%; 
+        }
+        #data{
+            padding-left: 25px;
+        }
+       
+        
+        .row:after {
+          content: "";
+          display: table;
+          clear: both;
+        }
+
+        #greencircle{
+            color:#85E085;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 20px;
+        }
+        #redcircle{
+            color:gray;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        p span{
+            margin-right:10px;
+            margin-bottom:10px;
+        }
+        #data p{
+            margin-bottom:0px;
+
+        }
+        #mychartDaily{
+            width:90%;
+            max-width:600px;
+        }
+        #mychartWeekly{
+            width:90%;
+            max-width:600px;
+        }
+        #availability{
+            padding-left:10px;
+        }
+
+        hr{
+            width:90%;
+            margin-top: 3em;
+            margin-bottom: 0.5em;
+            border-width: 1px;
+            align-items: center;
+        }
+        /*Eszti*/
+        header{
+            display:grid;
+            grid-template-columns:75% 25%;
+            background:#f4c2c2;
+            font-size: large;
+            height:100px;
+            top:0;
+            /*margin-bottom:20px;*/
+            border-bottom-left-radius: 50px;
+            border-bottom-right-radius: 50px;
+        }
+        footer{
+            margin: 0px;
+            padding: 0;
+            position:relative;
+            display:grid;
+            grid-template-columns:50% 50%;
+            height:150px;
+            width:100%;
+            background-color: rgb(71, 70, 70);
+            color:rgb(255, 255, 255);
+           
+        }
+        #content{
+
+            background-color: rgb(253, 252, 253);
+        }
+        #footercontent{
+            position:absolute;
+            top:10px;
+            left:10px;
+            padding:10px;
+            line-height:150%
+        }
+        #date{
+            position:absolute;
+            bottom:10px;
+            right:10px;
+        }
+        #doghouse{
+            padding-right: 30px;
+            font-size: 60px;
+            color: white;
+            text-align: middle;
+            text-align: right;
+            vertical-align:center;
+        }
+        #dog{
+            padding-left: 30px;
+            font-size: 60px;
+            color: white;
+            text-align: left;
+        };
+    </style>
+    </head>
+    <body>
+    
+       <!-- <img src="kutyahaz.png" width="500" height="600"> -->
+       <!-- Eszti-->
+       <header>
+            <div id="dog">
+                <i  class="fas fa-dog"></i>
+            </div>
+            <div id="doghouse">
+                <i class="fas fa-home"></i>
+            </div>
+      </header>
+        <!-- Eszti vége-->
+        
+        <div class="row">
+
+            <div id="data">
+                <h2>Jelenleg bent tartózkodik-e a házban <i class="fas fa-circle" id="greencircle"></i></h2> 
+    
+                <p id="availability">
+                    <p> 
+                        <span class="fas fa-circle" id="greencircle"></span> Igen 
+                        <span></span>
+                        <span class="fas fa-circle" id="redcircle"></span> Nem 
+                    </p>
+                    <p><b>Ulojára ekkor volt bent a házban:</b> valamilyen értéket beolvasunk</p> <!-- beolvasunk értéket, és ez csak akkor jelenik meg, ha szürke! - javascript-->
+                </p>
+            </div><hr>
+        
+          <div class="column">
+            <div class="weeklyDatas">
+                <h2>Heti adatok</h2>
+                <p>Az alábbi diagram azt szemlélteti, hogy a kutya az adott napon összesen hány órát töltött a kutyaházban.</p>
+                <canvas id="myChartWeekly" ></canvas>
+            </div>
+            <div id="underGraphsWeekly">
+                <h2>Mennyi volt a legtöbbet bent töltött idő a héten</h2>
+                <p>ide lesz beolvasva egy adat, pl: 10 óra</p>
+            </div>
+          </div>
+
+          <div class="column" >
+                <div class="dailyDatas">
+                    <h2>Napi adatok</h2>
+                    <p>Az alábbi diagram mutatja, hogy a kutya a három órás intervallumban hány percet töltött a kutyaházban.</p>
+                    <canvas id="myChartDaily" ></canvas>
+                </div>
+                <div id="underGraphsDaily">
+                    <h2>Utolsó mért súly</h2>
+                    <p>ide pedig az lesz beírva, hogy pl.: 10kg</p>
+                </div>
+               
+          </div>
+         
+        </div>
+        <!-- Nóri vége-->
+
+        <!-- Eszti-->
+        <footer>
+            <div  id="footercontent"><p><b>Széchenyi István Egyetem <br>Mikroelektromechanikai rendszerek</b><br>Déri Eszer Panna GY0HBO<br>Pap Nóra RQNFCX<br> </p></div>
+            <div  id="date">2021.11.16</div>
+        </footer>
+        <!-- Eszti vége-->
+    </body>
+        <script>
+            //weekly
+            //egy nap mennyit töltött bent-összesíti
+            var xValues = ['Hétfő','Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat', 'Vasárnap'];
+            var yValues = [5,7,9,10,2,3,4,5,8,10,7];
+            
+
+            new Chart("myChartWeekly", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+                fill: false,
+                lineTension: 0,
+                backgroundColor: "rgba(128, 128, 128, 1)",
+                borderColor: "rgba(244, 194, 194, 1)",
+                data: yValues
+                }]
+            },
+            options: {
+                legend: {display: false},
+                scales: {
+                yAxes: [{ticks: {min: 1, max:10}}],
+                }
+            }
+            });
+            //daily
+
+             
+            var xValues = [3,6,9,11,14,17,21,24];
+            var yValues = [10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180];
+            var barColors = ["#f4c2c2", "#f4c2c2", "#f4c2c2", "#f4c2c2", "#f4c2c2", "#f4c2c2", "#f4c2c2", "#f4c2c2"];
+            
+            new Chart("myChartDaily", {
+            type: "bar",
+            data: {
+                labels: xValues,
+                datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+                }]
+            },
+            options: {
+                legend: {display: false},
+                title: {
+                display: true
+                }
+            }
+            });
+            /*
+            var xyValues = [
+              {x:5, y:20},
+              {x:20, y:30},
+              {x:8, y:60},
+              {x:11, y:120},
+              {x:20, y:40},
+              {x:8, y:160},
+              {x:5, y:160},
+              {x:12, y:15},
+              {x:13, y:36},
+              {x:16, y:22},
+              {x:24, y:140}
+            ];
+            
+            
+            
+            new Chart("myChartDaily", {
+              type: "scatter",
+              data: {
+                datasets: [{
+                  pointRadius: 4,
+                  pointBackgroundColor: "rgba(244, 194, 194, 1)",
+                  data: xyValues
+                }]
+              },
+              options: {
+                legend: {display: false},
+                scales: {
+                  xAxes: [{ticks: {min: 3, max:24}}], 
+                  yAxes: [{ticks: {min:10 , max:180}}],//hány percet volt benne
+                }
+              }
+            });
+
+            */
+            </script>
+        </html>
+        
